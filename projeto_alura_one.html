@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            button{
+                display:display-inline;
+            }
+            input{
+                width: 200px;
+                height: 30px;
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Maquina Enigma</h1>
+        <input placeholder= " digite a palavra/frase a ser codificada"class = "info-codigo" type ="text"/>
+        <input class = "decodificador" type ="text"/>
+        <br>
+        <button class = "codifica">codificar</button>
+        <button class = "copia-info-codigo">copiar</button>
+        <br>
+        <button class = "colar-info-codigo">colar</button>
+        <span></span>
+        <button class="decodifica">decodificar</button>
+
+        <script>
+
+            //entradas
+            let inputCodifica = document.querySelector(".info-codigo");
+            let inputDecodifica = document.querySelector(".decodificador")
+            let botaoCodifica = document.querySelector(".codifica");
+            let botaoDecodifica =document.querySelector(".decodifica");    
+            let palavra,palavraCodificada=''
+            let botaoCopiar = document.querySelector(".copia-info-codigo")
+            let botaoColar = document.querySelector(".colar-info-codigo")
+            let copia;
+            //executores
+                function codificar(){
+            
+                                        palavra =inputCodifica.value.toLowerCase();//regex
+
+                                        palavra = palavra.replace(/[e]/g,"enter")
+                                        palavra = palavra.replace(/[i]/g,"imes")
+                                        palavra = palavra.replace(/[a]/g,"ai")
+                                        palavra = palavra.replace(/[u]/g, "ufat")
+                                        palavra = palavra.replace(/[o]/g,"ober");
+
+                                        inputDecodifica.value=palavra
+                                        inputCodifica.value=""
+
+                }
+
+                function decodificar(){
+
+                                        palavraCodificada = inputDecodifica.value.toLowerCase();
+
+                                        palavraCodificada = palavraCodificada.replace(/enter/g,"e");
+                                        palavraCodificada = palavraCodificada.replace(/imes/g,"i");
+                                        palavraCodificada = palavraCodificada.replace(/ai/g,"a");
+                                        palavraCodificada = palavraCodificada.replace(/ufat/g,"u");
+                                        palavraCodificada = palavraCodificada.replace(/ober/g,"o");
+                                        inputCodifica.value = palavraCodificada
+                }
+                function copiar(){
+                                copia= window.navigator.clipboard.writeText(inputCodifica.value)
+                                if(inputCodifica.value == ""){
+
+                                    copia=window.navigator.clipboard.writeText(inputDecodifica.value)
+
+                                }
+                                console.log(copia)
+                }
+                    function colar(){
+                                        if(inputCodifica.value==""){
+                                            inputCodifica.value= inputDecodifica.value
+                                        }else if(inputDecodifica.value==""){
+                                            inputDecodifica.value = inputCodifica.value
+                                        }
+                    }
+                botaoCodifica.onclick=codificar
+                botaoDecodifica.onclick =decodificar 
+                botaoCopiar.addEventListener("click",copiar)
+                botaoColar.addEventListener("click", colar)
+                
+        </script>
+    </body>
+</html>
